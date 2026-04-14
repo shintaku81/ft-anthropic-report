@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>日米AI格差レポート：コーディング活用とAgent認識ギャップ</title>
+<title>日米AI格差レポート：コンテキスト活用Agentの断絶</title>
 <style>
   * { box-sizing: border-box; margin: 0; padding: 0; }
   body { font-family: 'Hiragino Sans', 'Noto Sans JP', sans-serif; background: #f5f5f0; color: #1a1a1a; line-height: 1.8; }
@@ -108,6 +108,13 @@
   /* ソース */
   .sources { margin-top: 48px; padding-top: 24px; border-top: 1px solid #ddd; font-size: 12px; color: #888; }
   .sources a { color: #457b9d; }
+  .src-list { list-style: none; padding: 0; margin: 8px 0; }
+  .src-list li { margin-bottom: 6px; padding-left: 0; }
+  .src-num { display: inline-block; width: 28px; font-weight: bold; color: #457b9d; }
+
+  /* インライン引用 */
+  sup.cite a { color: #457b9d; font-size: 10px; text-decoration: none; }
+  sup.cite a:hover { text-decoration: underline; }
 
   /* まとめカード */
   .summary-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 28px 0; }
@@ -124,45 +131,6 @@
     h2 { font-size: 18px; }
   }
 </style>
-<style>
-#pw-overlay{position:fixed;inset:0;z-index:9999;background:#1a1a1a;display:flex;align-items:center;justify-content:center;}
-#pw-box{background:#fff;border-radius:8px;padding:40px 48px;text-align:center;box-shadow:0 8px 32px rgba(0,0,0,.4);width:320px;}
-#pw-box .logo{font-size:20px;font-weight:bold;color:#1a1a2e;font-family:Georgia,serif;letter-spacing:2px;margin-bottom:8px;}
-#pw-box p{font-size:13px;color:#777;margin-bottom:24px;}
-#pw-input{width:100%;padding:10px 14px;font-size:16px;border:2px solid #ddd;border-radius:4px;box-sizing:border-box;margin-bottom:12px;outline:none;letter-spacing:2px;text-align:center;}
-#pw-input:focus{border-color:#1a1a2e;}
-#pw-btn{width:100%;padding:10px;background:#1a1a2e;color:#fff;border:none;border-radius:4px;font-size:15px;cursor:pointer;font-weight:bold;}
-#pw-btn:hover{background:#0f3460;}
-#pw-error{color:#c00;font-size:13px;margin-top:10px;min-height:18px;}
-</style>
-<script>
-(function(){
-  const HASH='c3a89c548633cd3369cbfaddb2e958637ca04a5cff02d1fa419de37d241ca53c';
-  async function sha256(msg){
-    const buf=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(msg));
-    return Array.from(new Uint8Array(buf)).map(b=>b.toString(16).padStart(2,'0')).join('');
-  }
-  function unlock(){document.getElementById('pw-overlay').remove();sessionStorage.setItem('unlocked','1');}
-  window.checkPassword=async function(){
-    const val=document.getElementById('pw-input').value;
-    if(await sha256(val)===HASH){unlock();}
-    else{
-      const e=document.getElementById('pw-error');
-      e.textContent='パスワードが違います';
-      document.getElementById('pw-input').value='';
-      document.getElementById('pw-input').focus();
-      setTimeout(()=>e.textContent='',2000);
-    }
-  };
-  window.addEventListener('DOMContentLoaded',function(){
-    if(sessionStorage.getItem('unlocked'))return;
-    const o=document.createElement('div');
-    o.id='pw-overlay';
-    o.innerHTML=`<div id="pw-box"><div class="logo">maglab</div><p>パスワードを入力してください</p><input id="pw-input" type="password" placeholder="password" autofocus onkeydown="if(event.key==='Enter')checkPassword()"><button id="pw-btn" onclick="checkPassword()">アクセス</button><div id="pw-error"></div></div>`;
-    document.body.prepend(o);
-  });
-})();
-</script>
 </head>
 <body>
 
@@ -170,15 +138,15 @@
 <div style="background:#0f3460; padding:10px 0; font-size:13px;">
   <div style="max-width:860px; margin:0 auto; padding:0 24px; display:flex; gap:20px; align-items:center; flex-wrap:wrap;">
     <span style="color:#a0c4ff; font-weight:bold;">関連レポート：</span>
-    <a href="ft-article.html" style="color:#ffd700; text-decoration:none;">← FT記事日本語訳 + Rampレポート + 読者コメント</a>
+    <a href="Anthropic、米企業利用急増でOpenAIに迫る【FT日本語訳】.html" style="color:#ffd700; text-decoration:none;">← FT記事日本語訳 + Rampレポート + 読者コメント</a>
   </div>
 </div>
 
 <!-- ヒーロー -->
 <div class="hero">
   <div class="label">Analysis Report · 2026年4月 ｜ ファクトチェック済</div>
-  <h1>日米AI格差の本質：<br>「使い方のレベル」が問題だった</h1>
-  <p class="sub">導入率の差より深刻なのは、AIをどう使っているかの質的格差。コーディングAgentだけでなく、非エンジニア・営業職がAIを使いこなせていないことが根本問題。</p>
+  <h1>日米AI格差の本質：<br>「チャットの枠」を超えられているか</h1>
+  <p class="sub">日本のAI活用はテキスト生成・壁打ちで止まっている。米国は自社のビジネスデータ・コンテキストをAgentに渡し、分析・蓄積・意思決定を自動化している。この「コンテキスト活用の断絶」が本質的な格差だ。</p>
   <div class="meta">FT / Ramp AI Index / PwC / 総務省情報通信白書 / Gartner / Stack Overflow / GMO Research 各調査をもとに作成</div>
 </div>
 
@@ -186,13 +154,14 @@
 <nav class="toc">
   <div class="toc-inner">
     <a href="#gap">① 日米格差の数値</a>
-    <a href="#coding">② コーディングの断絶</a>
+    <a href="#coding">② コンテキスト活用の断絶</a>
     <a href="#ladder">③ 利用レベル階層</a>
     <a href="#agent">④ Agent定義の混乱</a>
     <a href="#nonengineer">⑤ 非エンジニアの問題</a>
     <a href="#trend2026">⑥ 2026年3月の転換点</a>
     <a href="#why">⑦ 構造的要因</a>
-    <a href="#outlook">⑧ 示唆</a>
+    <a href="#global">⑧ 世界の熱量</a>
+    <a href="#outlook">⑨ 示唆</a>
   </div>
 </nav>
 
@@ -207,86 +176,87 @@
     <div class="kpi-card japan">
       <div class="country">日本</div>
       <div class="num" style="color:#e63946;">26.7%</div>
-      <div class="desc">生成AI個人利用率<br>（総務省 情報通信白書 2025）</div>
+      <div class="desc">生成AI個人利用率<sup class="cite"><a href="#src1">[1]</a></sup></div>
     </div>
     <div class="kpi-card us">
       <div class="country">米国</div>
       <div class="num" style="color:#457b9d;">68.8%</div>
-      <div class="desc">生成AI個人利用率<br>（同調査比較）</div>
+      <div class="desc">生成AI個人利用率<sup class="cite"><a href="#src1">[1]</a></sup></div>
     </div>
     <div class="kpi-card china">
       <div class="country">中国</div>
       <div class="num" style="color:#2a9d8f;">81.2%</div>
-      <div class="desc">生成AI個人利用率<br>（同調査比較）</div>
+      <div class="desc">生成AI個人利用率<sup class="cite"><a href="#src1">[1]</a></sup></div>
     </div>
   </div>
 
   <div class="bar-chart">
-    <div class="bar-row"><div class="bar-label">企業AI業務利用（米）</div><div class="bar-track"><div class="bar-fill us" style="width:90.6%"><span class="bar-val">90.6%</span></div></div></div>
-    <div class="bar-row"><div class="bar-label">企業AI業務利用（日）</div><div class="bar-track"><div class="bar-fill jp" style="width:55.2%"><span class="bar-val">55.2%</span></div></div></div>
-    <div class="bar-row"><div class="bar-label">職場でのAI積極利用（日）</div><div class="bar-track"><div class="bar-fill jp" style="width:19%"><span class="bar-val">19.2%</span></div></div></div>
-    <div class="bar-row"><div class="bar-label">AIを使用・使用予定（開発者・米）</div><div class="bar-track"><div class="bar-fill us" style="width:84%"><span class="bar-val">84%</span></div></div></div>
-    <div class="bar-row"><div class="bar-label">効果が期待を上回った（米）</div><div class="bar-track"><div class="bar-fill us" style="width:51%"><span class="bar-val">51%</span></div></div></div>
-    <div class="bar-row"><div class="bar-label">効果が期待を上回った（日）</div><div class="bar-track"><div class="bar-fill jp" style="width:13%"><span class="bar-val">13%</span></div></div></div>
-    <div class="bar-row"><div class="bar-label">VC投資企業のAI採用率（米）</div><div class="bar-track"><div class="bar-fill us" style="width:80%"><span class="bar-val">80%</span></div></div></div>
+    <div class="bar-row"><div class="bar-label">企業AI業務利用（米）<sup class="cite"><a href="#src2">[2]</a></sup></div><div class="bar-track"><div class="bar-fill us" style="width:90.6%"><span class="bar-val">90.6%</span></div></div></div>
+    <div class="bar-row"><div class="bar-label">企業AI業務利用（日）<sup class="cite"><a href="#src2">[2]</a></sup></div><div class="bar-track"><div class="bar-fill jp" style="width:55.2%"><span class="bar-val">55.2%</span></div></div></div>
+    <div class="bar-row"><div class="bar-label">職場でのAI積極利用（日）<sup class="cite"><a href="#src4">[4]</a></sup></div><div class="bar-track"><div class="bar-fill jp" style="width:19%"><span class="bar-val">19.2%</span></div></div></div>
+    <div class="bar-row"><div class="bar-label">AIを使用・使用予定（開発者・米）<sup class="cite"><a href="#src11">[11]</a></sup></div><div class="bar-track"><div class="bar-fill us" style="width:84%"><span class="bar-val">84%</span></div></div></div>
+    <div class="bar-row"><div class="bar-label">効果が期待を上回った（米）<sup class="cite"><a href="#src3">[3]</a></sup></div><div class="bar-track"><div class="bar-fill us" style="width:51%"><span class="bar-val">51%</span></div></div></div>
+    <div class="bar-row"><div class="bar-label">効果が期待を上回った（日）<sup class="cite"><a href="#src3">[3]</a></sup></div><div class="bar-track"><div class="bar-fill jp" style="width:13%"><span class="bar-val">13%</span></div></div></div>
+    <div class="bar-row"><div class="bar-label">VC投資企業のAI採用率（米）<sup class="cite"><a href="#src9">[9]</a></sup></div><div class="bar-track"><div class="bar-fill us" style="width:80%"><span class="bar-val">80%</span></div></div></div>
   </div>
 
   <div class="warning-box">
-    <strong>注目：</strong>「効果が期待を上回った」日本13%は5カ国中<strong>最下位</strong>、米国51%の4分の1以下（PwC 生成AI実態調査2025）。企業AI業務利用も日本55.2% vs 米国90.6%・中国95.8%・ドイツ90.3%（総務省情報通信白書2025）。導入しているのに成果が出ていない構造的問題がある。
+    <strong>注目：</strong>「効果が期待を上回った」日本13%は5カ国中<strong>最下位</strong>、米国51%の4分の1以下<sup class="cite"><a href="#src3">[3]</a></sup>。企業AI業務利用も日本55.2% vs 米国90.6%・中国95.8%・ドイツ90.3%<sup class="cite"><a href="#src2">[2]</a></sup>。導入しているのに成果が出ていない構造的問題がある。
   </div>
 
-  <!-- ===== 2. コーディング格差 ===== -->
-  <h2 id="coding">② 最大の断絶：コーディングでの活用</h2>
+  <!-- ===== 2. コンテキスト活用格差 ===== -->
+  <h2 id="coding">② 最大の断絶：「チャット」か「コンテキスト活用」か</h2>
 
-  <p>ここが本質的な格差。日本は「AIに相談する」が中心だが、米国は「AIがコードを書く」フェーズに突入している。</p>
+  <p>問題の核心はコーディングの有無ではない。<strong>自社のビジネスデータ・コンテキストをAIに渡して、分析・蓄積・意思決定を継続的に行っているかどうか</strong>——この一点が日米の最大の断絶だ。</p>
+
+  <p>日本のAI活用の大半は「チャットの枠」の中で完結している。質問して答えを受け取る、文章を直してもらう、アイデアを壁打ちする。これは強力だが、<strong>一回性の消費</strong>だ。AIが自社の文脈を学ぶことはなく、使えば使うほど賢くなる組織にはならない。</p>
+
+  <p>米国の先進企業がやっていることは根本的に異なる。売上データ・顧客インサイト・議事録・メール・製品フィードバックをAgentに渡し、<strong>分析→蓄積→学習→次の意思決定への反映</strong>というループを回している。AIが組織のコンテキストを保持し、成長していく設計だ。</p>
 
   <table>
     <thead>
-      <tr><th>指標</th><th>米国</th><th>日本</th><th>格差</th></tr>
+      <tr><th>AI活用の軸</th><th>日本（多数派）</th><th>米国（先進企業）</th></tr>
     </thead>
     <tbody>
       <tr>
-        <td>AIコーディングツール利用率</td>
-        <td class="us">62%（開発者）</td>
-        <td class="jp">〜20%（推定）</td>
-        <td class="gap">3倍以上</td>
+        <td><strong>データの向き</strong></td>
+        <td class="jp">AIへの質問（プル型）</td>
+        <td class="us">ビジネスデータをAIに渡す（プッシュ型）</td>
       </tr>
       <tr>
-        <td>GitHub Copilot有料ユーザー</td>
-        <td class="us">470万人（2026年1月）</td>
-        <td class="jp">数万人規模（推定）</td>
-        <td class="gap">100倍以上</td>
+        <td><strong>コンテキスト</strong></td>
+        <td class="jp">セッション毎にリセット<br>文脈は人間が毎回入力</td>
+        <td class="us">CRM・DB・社内ナレッジと接続<br>Agentが文脈を保持・蓄積</td>
       </tr>
       <tr>
-        <td>Claude Code ARR</td>
-        <td class="us">$2.5B（年換算）</td>
-        <td class="jp">測定困難（極少）</td>
-        <td class="gap">—</td>
+        <td><strong>成果の性質</strong></td>
+        <td class="jp">その場限りのアウトプット<br>（文章・要約・アイデア）</td>
+        <td class="us">組織の知識資産として蓄積<br>次の判断に自動的に活用</td>
       </tr>
       <tr>
-        <td>GitHub公開コミットのAI生成比率</td>
-        <td class="us">4%（2026年初頭、年末20%予測）</td>
-        <td class="jp">ほぼ0%（推定）</td>
-        <td class="gap">—</td>
+        <td><strong>ループ</strong></td>
+        <td class="jp">使い終わり。次も1から</td>
+        <td class="us">使うほど賢くなる組織的AI</td>
       </tr>
       <tr>
-        <td>AIコーディングで「最も好き」</td>
-        <td class="us">Claude Code 46%、Cursor 19%、Copilot 9%</td>
-        <td class="jp">ChatGPTで代替が多数</td>
-        <td class="gap">ツール選択の差</td>
+        <td><strong>入力データ</strong></td>
+        <td class="jp">テキスト・プロンプトのみ</td>
+        <td class="us">音声・画像・センサー・取引データ等、マルチモーダル統合</td>
       </tr>
       <tr>
-        <td>組織全体のAI戦略策定率</td>
-        <td class="us">80%超（VC投資企業）</td>
-        <td class="jp">42〜50%</td>
-        <td class="gap">2倍</td>
+        <td><strong>生成AIの利用目的Top2（日本）</strong></td>
+        <td class="jp" colspan="2">文章作成68%・情報収集61%（GMO Research 2025）<br>→ どちらも「チャット消費型」。業務フロー自動化は12%にとどまる</td>
       </tr>
     </tbody>
   </table>
 
   <div class="insight-box">
-    <div class="title">Ramp AI Indexとの接続</div>
-    <p>RampデータでAnthropicを牽引しているのはVC投資企業（採用率80%）とテックスタートアップ。彼らが使っているのはまさにClaude CodeなどのAgentic coding tool。「アーリーアダプターが今日やっていることを、より広い市場は数ヶ月後にやる」——日本のアーリーアダプター層は、まだその入口にも立っていない。</p>
+    <div class="title">「チャットの枠を超える」とはどういうことか</div>
+    <p>具体的に言えば——営業チームが毎週の商談ログをAgentに渡し、勝率パターンを自動分析して次週のアプローチを提案させる。マーケが広告パフォーマンスデータをリアルタイムでAgentに流し込み、自動でA/Bテスト設計を最適化させる。経営会議の議事録・KPIデータ・競合情報をAgentが統合して、意思決定のドラフトを出す。<strong>これらはすべて「コーディング」の話ではなく、「コンテキストを渡す設計」の話だ。</strong></p>
+  </div>
+
+  <div class="warning-box">
+    <strong>Ramp AI Indexが示すもの：</strong>RampデータでAnthropicを牽引しているVC投資企業（採用率80%）は、コーディングだけでなく<strong>ビジネスオペレーション全体にAgentを組み込んでいる</strong>。彼らが使っているのはClaude CodeのARRを押し上げているエンジニア向けツールだけでなく、Claude APIを使ったカスタムAgent群だ。「アーリーアダプターが今日やっていること」——それは日本が「まだ検討中」のコンテキスト活用Agentだ。
   </div>
 
   <!-- ===== 3. 利用レベルの階層 ===== -->
@@ -433,17 +403,17 @@
     <div class="kpi-card us">
       <div class="country">Claude Code ARR推移</div>
       <div class="num" style="color:#457b9d; font-size:28px;">$1B → $2.5B</div>
-      <div class="desc">2025年9月（$1B）→ 2026年2月（$2.5B）<br>わずか5ヶ月で2.5倍<br><small>出典: Anthropic公式・Sacra</small></div>
+      <div class="desc">2025年9月（$1B）→ 2026年2月（$2.5B）<br>わずか5ヶ月で2.5倍<sup class="cite"><a href="#src6">[6]</a></sup></div>
     </div>
     <div class="kpi-card us">
       <div class="country">Accenture</div>
       <div class="num" style="color:#457b9d; font-size:28px;">30,000人</div>
-      <div class="desc">Claude Codeトレーニング予定スタッフ数<br>大半は非エンジニア<br><small>出典: Anthropic公式発表</small></div>
+      <div class="desc">Accenture Claude Code研修スタッフ数<br>大半は非エンジニア<sup class="cite"><a href="#src14">[14]</a></sup></div>
     </div>
     <div class="kpi-card us">
       <div class="country">Deloitte</div>
       <div class="num" style="color:#457b9d; font-size:28px;">470,000人</div>
-      <div class="desc">Claude展開従業員数<br>コンサル・会計職が中心<br><small>出典: Anthropic公式発表</small></div>
+      <div class="desc">Deloitte Claude展開従業員数<br>コンサル・会計職が中心<sup class="cite"><a href="#src15">[15]</a></sup></div>
     </div>
   </div>
 
@@ -485,45 +455,92 @@
   </div>
 
   <!-- ===== 7. なぜ遅れるか ===== -->
-  <h2 id="why">⑦ なぜ日本は「コーディングAgent」に至らないか</h2>
+  <h2 id="why">⑦ なぜ日本は「コンテキスト活用Agent」に至らないか</h2>
+
+  <p>「チャットの枠を超えたAI活用」——ビジネスデータをAgentに渡し、文脈を蓄積・成長させる設計——に日本企業が至らない構造的要因を整理する。</p>
 
   <table>
     <thead><tr><th>構造的要因</th><th>内容</th></tr></thead>
     <tbody>
       <tr>
-        <td><strong>ChatGPT一強の刷り込み</strong></td>
-        <td>日本の生成AI市場でChatGPTのシェアは54.9%（GMO Research 2025）。「生成AI＝ChatGPT」という認知が固定し、Claude / Cursor / Copilotなどコーディング特化ツールへのリーチが弱い。</td>
+        <td><strong>「使う」止まりで「渡す」設計がない</strong></td>
+        <td>日本のAI活用は「質問→回答」の消費モデル。自社のCRM・売上DB・議事録・顧客データをAgentに接続し、継続的に文脈を蓄積させる「渡す設計」の発想が経営・IT部門に育っていない。</td>
       </tr>
       <tr>
-        <td><strong>コーディングの文化的地位</strong></td>
-        <td>日本企業ではエンジニアが「作業者」として扱われ、開発効率化ツールへの投資判断が経営から遠い。米国では開発者が意思決定者に近く、自らツールを評価・採用する。</td>
+        <td><strong>データが散在・サイロ化している</strong></td>
+        <td>Agentにコンテキストを渡すには、まずデータが整備されていなければならない。日本企業はExcel・メール・紙・レガシーシステムにデータが分散しており、「AIに渡せる状態」になっていないケースが多い。</td>
+      </tr>
+      <tr>
+        <td><strong>ChatGPT一強の刷り込み</strong></td>
+        <td>日本の生成AI市場でChatGPTのシェアは54.9%（GMO Research 2025）。「生成AI＝ChatGPTに聞く」という認知が固定し、「AIにデータを渡して動かす」というAgent的発想へのシフトが遅い。</td>
       </tr>
       <tr>
         <td><strong>セキュリティ・承認プロセス</strong></td>
-        <td>新ツール導入には情報セキュリティ審査が必要で、Claude Code・Cursorのような新興ツールは「評価未了」として制限されやすい。</td>
+        <td>社内データをAIに渡すには情報セキュリティ審査が必要。「外部サービスへのデータ送信」として一律ブロックされるケースが多く、コンテキスト活用Agentの実験すらできない組織が多い。</td>
       </tr>
       <tr>
-        <td><strong>Level 1で止まる成功体験不足</strong></td>
-        <td>ChatGPTで壁打ちした程度では劇的な成果は出ない。「AIは使えない」という誤った結論に至り、Level 3〜4への投資意欲が生まれない。</td>
+        <td><strong>Level 1成功体験の罠</strong></td>
+        <td>「ChatGPTで文章を直してもらった」程度の体験では劇的な成果は出ない。「AIは大したことない」という誤解が定着し、データを渡してAgentを動かすLevel 3〜4への投資意欲が生まれない。</td>
       </tr>
       <tr>
         <td><strong>VCエコシステムの差</strong></td>
-        <td>Rampデータが示すように、VC投資企業のAI採用率は80%。日本のVC投資企業数・規模は米国の数十分の1であり、「アーリーアダプター層」が構造的に薄い。</td>
+        <td>Rampデータが示すように、米国のVC投資企業のAI採用率は80%。これらの企業はAgentに業務データを渡す設計を当然の前提としている。日本のVC規模・企業数は米国の数十分の1であり、そのような「実験の場」が構造的に少ない。</td>
       </tr>
     </tbody>
   </table>
 
-  <!-- ===== 6. 示唆 ===== -->
-  <h2 id="outlook">⑧ 示唆：「使い方のレベル」を上げることが急務</h2>
+  <!-- ===== 8. グローバルトレンド ===== -->
+  <h2 id="global">⑧ 世界はすでに気づいている——日本だけが見ていない</h2>
+
+  <p>「コンテキスト活用Agent」の波は、2025年後半から世界では急速に認知が広がっている。YouTube・SNS・大手メディアの報道量が急増し、グローバルでは臨界点を超えつつある。日本のビジネス層はまだこの波を認識できていない。</p>
+
+  <table>
+    <thead><tr><th>指標</th><th>グローバルの状況</th><th>日本の状況</th></tr></thead>
+    <tbody>
+      <tr>
+        <td><strong>YouTubeコンテンツ</strong></td>
+        <td>「Claude Code for non-engineers」「Non-Technical Founder's Playbook」など非エンジニア向け動画が急増。Udemy・Courseraにもビジネス職向けClaude Codeコースが続々登場</td>
+        <td>Claude Code関連動画はエンジニア向けが中心。ビジネス活用の解説コンテンツはほぼ皆無</td>
+      </tr>
+      <tr>
+        <td><strong>メディア報道</strong></td>
+        <td>Fortune「非コーダーがClaude Code成長を牽引」<sup class="cite"><a href="#src16">[16]</a></sup>、FT「Anthropicが急成長」——「AIはエンジニアだけのものではない」という認識が主流メディアに定着</td>
+        <td>The Japan Times「日本全国民にClaude購読を」<sup class="cite"><a href="#src17">[17]</a></sup>と論説は出たが、ビジネス実践の報道は薄い</td>
+      </tr>
+      <tr>
+        <td><strong>大企業の全社展開</strong></td>
+        <td>Accenture 3万人<sup class="cite"><a href="#src14">[14]</a></sup>・Deloitte 47万人<sup class="cite"><a href="#src15">[15]</a></sup>——「コンサル・会計・営業職がAgentを使う」が当然の前提になっている</td>
+        <td>IT部門でのPoC段階が多い。経営・営業・マーケへの展開は限定的</td>
+      </tr>
+      <tr>
+        <td><strong>コミュニティ熱量</strong></td>
+        <td>Reddit・LinkedIn・X（旧Twitter）でAgentによるビジネスデータ活用の実践ナレッジが急増。「非エンジニアでもできた」という投稿が連日バイラル</td>
+        <td>Claude Code Meetup Japanはエンジニア向け<br>「すごい人数になってる」（X投稿 2026年3月）——熱量はあるが非エンジニア層への拡散は未到達</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="insight-box" style="border-left-color:#e63946;">
+    <div class="title" style="color:#e63946;">「気づいていない」ではなく「気づくのが遅い」</div>
+    <p>ChatGPTが出た時も、日本は米国に6〜12ヶ月遅れて認知が広がった。コンテキスト活用Agentも同じ構造だ。今グローバルで起きている波は、12〜18ヶ月後に日本のビジネス現場に届く。問題は、<strong>その時点で競合（国内外）がすでに1〜2年分の「コンテキスト蓄積の差」を積み上げているという非対称性</strong>だ。AIは使えば使うほど強くなる。遅れた分、追いつくことが難しくなる。</p>
+  </div>
+
+  <div class="warning-box">
+    <strong>今この瞬間に乗り遅れているということの意味：</strong>「チャット消費型AI」はいつ始めても同じだが、「コンテキスト蓄積型Agent」は開始時点が競争優位に直結する。自社データをAgentに渡し始めた企業と、渡していない企業の差は、時間とともに指数的に拡大する。
+  </div>
+
+  <!-- ===== 9. 示唆 ===== -->
+  <h2 id="outlook">⑨ 示唆：「使い方のレベル」を上げることが急務</h2>
 
   <div class="summary-grid">
     <div class="summary-card">
       <h4 style="color:#e63946;">日本が誤解していること</h4>
       <ul>
         <li>「AI導入＝ChatGPT配布」で完了と思っている</li>
-        <li>「Agentを入れた＝GPTsを作った」で満足</li>
-        <li>生成AIのROIをLevel 1の用途で測っている</li>
-        <li>コーディングAIは「エンジニアのおもちゃ」と見ている</li>
+        <li>「Agentを入れた＝GPTsを作った」で満足している</li>
+        <li>AIに渡すべき自社データが整備されていない</li>
+        <li>生成AIのROIをLevel 1（チャット消費）の用途で測っている</li>
+        <li>「コンテキスト活用Agent」と「コーディングAI」を混同している</li>
         <li>「まだ様子見」が許される局面ではなくなっている</li>
       </ul>
     </div>
@@ -551,7 +568,7 @@
   <!-- 相互リンク -->
   <div style="background:#0f3460; border-radius:8px; padding:20px 24px; margin-top:48px; color:#fff;">
     <div style="font-size:13px; color:#a0c4ff; margin-bottom:10px; font-weight:bold;">関連レポート</div>
-    <a href="ft-article.html"
+    <a href="Anthropic、米企業利用急増でOpenAIに迫る【FT日本語訳】.html"
        style="color:#ffd700; font-size:15px; text-decoration:none; display:block; margin-bottom:6px;">
       ← FT記事：Anthropic、米企業利用急増でOpenAIに迫る（日本語訳）
     </a>
@@ -559,26 +576,31 @@
   </div>
 
   <div class="sources">
-    <strong>データ出典・ファクトチェック状況：</strong><br><br>
-    <strong>✅ 検証済み</strong><br>
-    ・ <a href="https://www.soumu.go.jp/johotsusintokei/whitepaper/ja/r07/html/nd112210.html" target="_blank">総務省 令和7年版情報通信白書：個人の生成AI利用率（日本26.7%・米68.8%・中81.2%）</a><br>
-    ・ <a href="https://www.soumu.go.jp/johotsusintokei/whitepaper/ja/r07/html/nd112220.html" target="_blank">総務省 令和7年版情報通信白書：企業のAI業務利用（日本55.2%・米国90.6%・中国95.8%）</a><br>
-    ・ <a href="https://www.pwc.com/jp/ja/knowledge/thoughtleadership/generative-ai-survey2025.html" target="_blank">PwC Japan：生成AI実態調査2025春 5カ国比較（日本13% = 5カ国最下位・米国51%）</a><br>
-    ・ <a href="https://gmo-research.ai/en/resources/studies/2025-study-gen-AI-jp" target="_blank">GMO Research 2025：ChatGPT日本シェア54.9%、Claude 3.3%、職場積極利用19.2%</a><br>
-    ・ <a href="https://techbullion.com/github-copilot-reaches-4-7-million-subscribers-ai-powered-software-development-in-2026/" target="_blank">GitHub Copilot有料ユーザー470万人（Microsoft FY26 Q2決算 2026年1月）</a><br>
-    ・ <a href="https://sacra.com/c/anthropic/" target="_blank">Claude Code ARR $2.5B（Sacra / Anthropic公式 2026年2月）</a><br>
-    ・ <a href="https://gigazine.net/gsc_news/en/20260210-claude-code-github-commits-4-percent-20-percent/" target="_blank">GitHubパブリックコミットの4%がClaude Code（SemiAnalysis推計・2026年2月）※推計値</a><br>
-    ・ <a href="https://www.gartner.co.jp/ja/newsroom/press-releases/pr-20250514-ai-agent" target="_blank">Gartner：AIエージェントとエージェント型AIの定義区別（2025年5月）</a><br>
-    ・ <a href="https://ramp.com/leading-indicators/april-2026-ai-index" target="_blank">Ramp AI Index April 2026（VC企業80%・全体50.4%・Anthropic30.6%）</a><br>
-    ・ <a href="https://ramp.com/velocity/how-we-built-the-ramp-ai-index" target="_blank">Ramp AI Index方法論（バイアス・サンプル制約の自己開示含む）</a><br>
-    ・ <a href="https://stackoverflow.blog/2025/12/29/developers-remain-willing-but-reluctant-to-use-ai-the-2025-developer-survey-results-are-here/" target="_blank">Stack Overflow Developer Survey 2025：開発者の84%がAI使用・予定</a><br>
-    ・ <a href="https://econlab.substack.com/p/what-drives-ai-adoption" target="_blank">Ramp Economics Lab（Ara Kharazian）：What drives AI adoption？（2026年4月）</a><br><br>
-    <strong>📌 追加データ・非エンジニアトレンド</strong><br>
-    ・ <a href="https://www.365iwebdesign.co.uk/news/2026/01/24/claude-code-billion-dollar-non-coders/" target="_blank">Claude Code Billion-Dollar Milestone: Non-Coders Driving AI Adoption（2026年1月）</a><br>
-    ・ Accenture 30,000人・Deloitte 470,000人へのClaude展開：Anthropic公式発表<br><br>
+    <strong>データ出典・ファクトチェック（番号は本文の引用番号に対応）</strong><br><br>
+    <strong>✅ 検証済み</strong>
+    <ul class="src-list">
+      <li id="src1"><span class="src-num">[1]</span> <a href="https://www.soumu.go.jp/johotsusintokei/whitepaper/ja/r07/html/nd112210.html" target="_blank">総務省 令和7年版情報通信白書：個人の生成AI利用率（日本26.7%・米68.8%・中81.2%）</a></li>
+      <li id="src2"><span class="src-num">[2]</span> <a href="https://www.soumu.go.jp/johotsusintokei/whitepaper/ja/r07/html/nd112220.html" target="_blank">総務省 令和7年版情報通信白書：企業のAI業務利用（日本55.2%・米国90.6%・中国95.8%）</a></li>
+      <li id="src3"><span class="src-num">[3]</span> <a href="https://www.pwc.com/jp/ja/knowledge/thoughtleadership/generative-ai-survey2025.html" target="_blank">PwC Japan：生成AI実態調査2025春 5カ国比較（日本13% = 5カ国最下位・米国51%）</a></li>
+      <li id="src4"><span class="src-num">[4]</span> <a href="https://gmo-research.ai/en/resources/studies/2025-study-gen-AI-jp" target="_blank">GMO Research 2025：ChatGPT日本シェア54.9%、Claude 3.3%、職場積極利用19.2%</a></li>
+      <li id="src5"><span class="src-num">[5]</span> <a href="https://techbullion.com/github-copilot-reaches-4-7-million-subscribers-ai-powered-software-development-in-2026/" target="_blank">GitHub Copilot有料ユーザー470万人（Microsoft FY26 Q2決算 2026年1月）</a></li>
+      <li id="src6"><span class="src-num">[6]</span> <a href="https://sacra.com/c/anthropic/" target="_blank">Claude Code ARR $2.5B（Sacra / Anthropic公式 2026年2月）</a></li>
+      <li id="src7"><span class="src-num">[7]</span> <a href="https://gigazine.net/gsc_news/en/20260210-claude-code-github-commits-4-percent-20-percent/" target="_blank">GitHubパブリックコミットの4%がClaude Code（SemiAnalysis推計・2026年2月）※推計値</a></li>
+      <li id="src8"><span class="src-num">[8]</span> <a href="https://www.gartner.co.jp/ja/newsroom/press-releases/pr-20250514-ai-agent" target="_blank">Gartner：AIエージェントとエージェント型AIの定義区別（2025年5月）</a></li>
+      <li id="src9"><span class="src-num">[9]</span> <a href="https://ramp.com/leading-indicators/april-2026-ai-index" target="_blank">Ramp AI Index April 2026（VC企業80%・全体50.4%・Anthropic30.6%）</a></li>
+      <li id="src10"><span class="src-num">[10]</span> <a href="https://ramp.com/velocity/how-we-built-the-ramp-ai-index" target="_blank">Ramp AI Index方法論（バイアス・サンプル制約の自己開示含む）</a></li>
+      <li id="src11"><span class="src-num">[11]</span> <a href="https://stackoverflow.blog/2025/12/29/developers-remain-willing-but-reluctant-to-use-ai-the-2025-developer-survey-results-are-here/" target="_blank">Stack Overflow Developer Survey 2025：開発者の84%がAI使用・予定</a></li>
+      <li id="src12"><span class="src-num">[12]</span> <a href="https://econlab.substack.com/p/what-drives-ai-adoption" target="_blank">Ramp Economics Lab（Ara Kharazian）：What drives AI adoption？（2026年4月）</a></li>
+      <li id="src13"><span class="src-num">[13]</span> <a href="https://www.365iwebdesign.co.uk/news/2026/01/24/claude-code-billion-dollar-non-coders/" target="_blank">Claude Code Billion-Dollar Milestone: Non-Coders Driving AI Adoption（2026年1月）</a></li>
+      <li id="src14"><span class="src-num">[14]</span> <a href="https://www.anthropic.com/news/anthropic-accenture-partnership" target="_blank">Anthropic × Accenture 3万人Claude Code研修パートナーシップ（Anthropic公式 2025年12月）</a></li>
+      <li id="src15"><span class="src-num">[15]</span> <a href="https://www.anthropic.com/news/deloitte-anthropic-partnership" target="_blank">Anthropic × Deloitte 47万人全従業員Claude展開（Anthropic公式 2025年10月）</a></li>
+      <li id="src16"><span class="src-num">[16]</span> <a href="https://fortune.com/2026/01/24/anthropic-boris-cherny-claude-code-non-coders-software-engineers/" target="_blank">Fortune：「非コーダーがClaude Code成長を牽引」（2026年1月）</a></li>
+      <li id="src17"><span class="src-num">[17]</span> <a href="https://www.japantimes.co.jp/commentary/2026/02/20/japan/japan-claude-subscriptions/" target="_blank">The Japan Times：「日本全国民にClaude購読を」（2026年2月）</a></li>
+    </ul>
+    <br>
     <strong>⚠️ 本レポートで修正した数値</strong><br>
-    ・「職場でのAI利用許可（米）88%」→ Stack Overflow確認値84%に修正<br>
-    ・「効果が期待を上回った（米）約35%」→ PwC確認値51%に修正
+    ・「職場でのAI利用許可（米）88%」→ Stack Overflow [11] 確認値84%に修正<br>
+    ・「効果が期待を上回った（米）約35%」→ PwC [3] 確認値51%に修正
   </div>
 
 </div>
