@@ -3,6 +3,79 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+  #pw-overlay {
+    position: fixed; inset: 0; z-index: 9999;
+    background: #1a1a1a;
+    display: flex; align-items: center; justify-content: center;
+  }
+  #pw-box {
+    background: #fff; border-radius: 8px;
+    padding: 40px 48px; text-align: center;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+    width: 320px;
+  }
+  #pw-box .logo { font-size: 22px; font-weight: bold; color: #c00; font-family: Georgia, serif; letter-spacing: 2px; margin-bottom: 8px; }
+  #pw-box p { font-size: 13px; color: #777; margin-bottom: 24px; }
+  #pw-input {
+    width: 100%; padding: 10px 14px; font-size: 16px;
+    border: 2px solid #ddd; border-radius: 4px;
+    box-sizing: border-box; margin-bottom: 12px;
+    outline: none; letter-spacing: 2px; text-align: center;
+  }
+  #pw-input:focus { border-color: #c00; }
+  #pw-btn {
+    width: 100%; padding: 10px; background: #c00; color: #fff;
+    border: none; border-radius: 4px; font-size: 15px;
+    cursor: pointer; font-weight: bold;
+  }
+  #pw-btn:hover { background: #a00; }
+  #pw-error { color: #c00; font-size: 13px; margin-top: 10px; min-height: 18px; }
+  body.locked { overflow: hidden; }
+</style>
+<script>
+(function() {
+  const HASH = 'c3a89c548633cd3369cbfaddb2e958637ca04a5cff02d1fa419de37d241ca53c';
+  async function sha256(msg) {
+    const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(msg));
+    return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2,'0')).join('');
+  }
+  function unlock() {
+    document.getElementById('pw-overlay').remove();
+    document.body.classList.remove('locked');
+    sessionStorage.setItem('unlocked', '1');
+  }
+  window.checkPassword = async function() {
+    const val = document.getElementById('pw-input').value;
+    const h = await sha256(val);
+    if (h === HASH) {
+      unlock();
+    } else {
+      const err = document.getElementById('pw-error');
+      err.textContent = 'パスワードが違います';
+      document.getElementById('pw-input').value = '';
+      document.getElementById('pw-input').focus();
+      setTimeout(() => err.textContent = '', 2000);
+    }
+  };
+  window.addEventListener('DOMContentLoaded', function() {
+    if (sessionStorage.getItem('unlocked')) return;
+    document.body.classList.add('locked');
+    const overlay = document.createElement('div');
+    overlay.id = 'pw-overlay';
+    overlay.innerHTML = `
+      <div id="pw-box">
+        <div class="logo">FT Report</div>
+        <p>このページはパスワードで保護されています</p>
+        <input id="pw-input" type="password" placeholder="パスワード" autofocus
+          onkeydown="if(event.key==='Enter') checkPassword()">
+        <button id="pw-btn" onclick="checkPassword()">アクセス</button>
+        <div id="pw-error"></div>
+      </div>`;
+    document.body.prepend(overlay);
+  });
+})();
+</script>
 <title>Anthropic、米企業利用急増でOpenAIに迫る【FT + Ramp 日本語訳】</title>
 <style>
   * { box-sizing: border-box; margin: 0; padding: 0; }
